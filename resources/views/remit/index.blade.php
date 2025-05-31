@@ -1,46 +1,53 @@
-<!-- resources/views/remit/index.blade.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Remit Übersicht</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container py-4">
-    <h1 class="mb-4">Remit Übersicht</h1>
+{{-- resources/views/remit/index.blade.php --}}
+@extends('layouts.app')
 
-    <a href="{{ route('remit.create') }}" class="btn btn-primary mb-3">+ Neues Remit erstellen</a>
+@section('title', 'Remit Übersicht')
 
-    {{-- Erfolgsmeldung --}}
+@section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Remit Übersicht</h1>
+        <a href="{{ route('remit.create') }}" class="btn btn-primary">+ Neues Remit</a>
+    </div>
+
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    @if(count($remits) > 0)
-        <ul class="list-group">
-            @foreach($remits as $remit)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>
-                        <a href="{{ route('remit.show', $remit->id) }}">{{ $remit->title }}</a>
-                    </span>
-                    <span>
-                        <a href="{{ route('remit.edit', $remit->id) }}" class="btn btn-sm btn-warning">Bearbeiten</a>
-                        <form action="{{ route('remit.destroy', $remit->id) }}" method="POST" class="d-inline" style="display:inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Wirklich löschen?')">Löschen</button>
-                        </form>
-                    </span>
-                </li>
-            @endforeach
-        </ul>
+    @if(count($remits))
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Betrag (€)</th>
+                    <th>Datum</th>
+                    <th>Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($remits as $remit)
+                    <tr>
+                        <td>
+                            <a href="{{ route('remit.show', $remit->id) }}">
+                                {{ $remit->title }}
+                            </a>
+                        </td>
+                        <td>{{ number_format($remit->amount, 2, ',', '.') ?? '-' }}</td>
+                        <td>
+                            {{ $remit->remit_date ? \Carbon\Carbon::parse($remit->remit_date)->format('d.m.Y') : '-' }}
+                        </td>
+                        <td>
+                            <a href="{{ route('remit.show', $remit->id) }}" class="btn btn-info btn-sm">Anzeigen</a>
+                            <a href="{{ route('remit.edit', $remit->id) }}" class="btn btn-warning btn-sm">Bearbeiten</a>
+                            <form action="{{ route('remit.destroy', $remit->id) }}" method="POST" style="display:inline">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?')">Löschen</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     @else
         <p class="text-muted mt-4">Keine Remits vorhanden.</p>
     @endif
-
-</body>
-</html>
+@endsection

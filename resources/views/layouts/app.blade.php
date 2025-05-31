@@ -10,10 +10,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Shift-Manager</a>
-            <div class="collapse navbar-collapse">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('remit.index') }}">Remits</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('remit.create') }}">Neu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('remit.create') }}">Neues Remit</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shift.index') }}">Schichtplan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shift.create') }}">Neue Schicht</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shift.calendar') }}">Schicht-Kalender</a></li>
                 </ul>
             </div>
         </div>
