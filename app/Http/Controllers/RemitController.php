@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Remit;
 
 class RemitController extends Controller
 {
-    // Dummy-Daten als Platzhalter
-    private $remits = [
-        ['id' => 1, 'title' => 'Rechnung 001'],
-        ['id' => 2, 'title' => 'Rechnung 002'],
-        ['id' => 3, 'title' => 'Rechnung 003'],
-    ];
-
-    // Alle Remits anzeigen
+    // Alle Remits anzeigen (jetzt aus der DB)
     public function index()
     {
-        $remits = $this->remits;
+        $remits = Remit::all();
         return view('remit.index', compact('remits'));
     }
 
@@ -26,49 +20,52 @@ class RemitController extends Controller
         return view('remit.create');
     }
 
-    // Neues Remit speichern (Dummy-Logik)
+    // Neues Remit speichern (in die DB)
     public function store(Request $request)
     {
-        // Normalerweise würdest du hier validieren und in die DB speichern
-        // Dummy: Zeige die Daten an
-        $title = $request->input('title');
-        // Nach dem Speichern umleiten (später zu DB ergänzen)
-        return redirect()->route('remit.index')->with('success', 'Remit gespeichert: ' . $title);
+        // Validierung
+        $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+        // Neues Remit anlegen
+        Remit::create([
+            'title' => $request->input('title')
+        ]);
+        return redirect()->route('remit.index')->with('success', 'Remit gespeichert!');
     }
 
     // Einzelnes Remit anzeigen
     public function show($id)
     {
-        // Dummy-Suche (normalerweise DB)
-        $remit = collect($this->remits)->firstWhere('id', $id);
-        if (!$remit) {
-            abort(404);
-        }
+        $remit = Remit::findOrFail($id);
         return view('remit.show', compact('remit'));
     }
 
     // Formular zum Bearbeiten anzeigen
     public function edit($id)
     {
-        $remit = collect($this->remits)->firstWhere('id', $id);
-        if (!$remit) {
-            abort(404);
-        }
+        $remit = Remit::findOrFail($id);
         return view('remit.edit', compact('remit'));
     }
 
-    // Änderungen speichern (Dummy)
+    // Änderungen speichern (in der DB)
     public function update(Request $request, $id)
     {
-        $title = $request->input('title');
-        // Hier würdest du updaten in der DB
-        return redirect()->route('remit.index')->with('success', 'Remit aktualisiert: ' . $title);
+        $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+        $remit = Remit::findOrFail($id);
+        $remit->update([
+            'title' => $request->input('title')
+        ]);
+        return redirect()->route('remit.index')->with('success', 'Remit aktualisiert!');
     }
 
-    // Remit löschen (Dummy)
+    // Remit löschen
     public function destroy($id)
     {
-        // Hier würdest du aus der DB löschen
-        return redirect()->route('remit.index')->with('success', 'Remit gelöscht');
+        $remit = Remit::findOrFail($id);
+        $remit->delete();
+        return redirect()->route('remit.index')->with('success', 'Remit gelöscht!');
     }
 }
