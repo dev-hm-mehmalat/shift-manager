@@ -1,61 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Shift-Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Shift-Manager** ist eine Laravel-Anwendung zur Verwaltung von Remits (z. B. Rechnungen oder Zahlungsbelegen) mit QR-Code-Funktion. Das Projekt ist als Basis für weitere Features (z. B. Schichtverwaltung, Kalenderintegration etc.) gedacht.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Übersicht aller Remits
+- Anlegen, Bearbeiten und Löschen von Remits
+- QR-Code-Generierung für jeden Remit (z. B. zur schnellen Weitergabe oder Archivierung)
+- Moderne, erweiterbare Codebasis (Laravel, MVC)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Screenshots
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![Remit Übersicht](./public/images/demo-remit-list.png)
+*(Screenshot einfügen, wenn du möchtest)*
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Repository klonen**
+    ```bash
+    git clone <dein-repo-link>
+    cd shift-manager
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Abhängigkeiten installieren**
+    ```bash
+    composer install
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Umgebungsdatei einrichten**
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+    > Passe die `.env`-Datei an deine Datenbank-Konfiguration an!
 
-## Laravel Sponsors
+4. **QR-Code-Paket installieren**
+    ```bash
+    composer require simplesoftwareio/simple-qrcode
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. **Migrationen ausführen (Datenbanktabellen erstellen)**
+    ```bash
+    php artisan migrate
+    ```
 
-### Premium Partners
+6. **Server starten**
+    ```bash
+    php artisan serve
+    ```
+    Die Anwendung ist dann erreichbar unter: [http://localhost:8000](http://localhost:8000)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Grundfunktionen
 
-## Contributing
+- **Remit anlegen:** Über das Formular auf `/remit/create`
+- **Remits ansehen:** Auf der Übersichtsseite `/remit`
+- **Remit bearbeiten:** Über die Detailseite `/remit/{id}/edit`
+- **Remit löschen:** Über die Detailseite oder Listenansicht
+- **QR-Code:** Auf der Detailseite jedes Remits (`/remit/{id}`) wird automatisch ein QR-Code generiert.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Weiterentwicklung (Ideen)
 
-## Code of Conduct
+- Integration eines Kalenders oder Schichtplans
+- Benutzerverwaltung (Authentifizierung)
+- Mehrsprachigkeit (Localization)
+- E-Mail-Benachrichtigungen
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Systemanforderungen
 
-## Security Vulnerabilities
+- PHP >= 8.2
+- Composer
+- Eine Datenbank (MySQL, MariaDB, SQLite, etc.)
+- Node.js/NPM (optional für Frontend-Assets)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Lizenz
 
-## License
+MIT License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Kontakt
+
+Erstellt von [Hamza] – Fragen, Feedback oder Anregungen? Einfach melden!
+
+---
+
+## Quellen und Links
+
+- [Laravel Dokumentation](https://laravel.com/docs)
+- [Simple QrCode Paket](https://github.com/SimpleSoftwareIO/simple-qrcode)
