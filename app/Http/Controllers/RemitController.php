@@ -23,14 +23,14 @@ class RemitController extends Controller
     // Speichert ein neues Remit (mit Backend-Validierung)
     public function store(Request $request)
     {
-        // --- BACKEND-VALIDIERUNG ---
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
+            'amount' => 'nullable|numeric',
+            'remit_date' => 'nullable|date',
+            'description' => 'nullable|string',
         ]);
-        // --------------------------
 
-        // Speichern in der Datenbank
-        Remit::create($validated);
+        Remit::create($request->only(['title', 'amount', 'remit_date', 'description']));
 
         return redirect()->route('remit.index')->with('success', 'Remit gespeichert!');
     }
@@ -52,14 +52,15 @@ class RemitController extends Controller
     // Speichert Änderungen (mit Backend-Validierung)
     public function update(Request $request, $id)
     {
-        // --- BACKEND-VALIDIERUNG ---
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
+            'amount' => 'nullable|numeric',
+            'remit_date' => 'nullable|date',
+            'description' => 'nullable|string',
         ]);
-        // --------------------------
 
         $remit = Remit::findOrFail($id);
-        $remit->update($validated);
+        $remit->update($request->only(['title', 'amount', 'remit_date', 'description']));
 
         return redirect()->route('remit.index')->with('success', 'Remit aktualisiert!');
     }

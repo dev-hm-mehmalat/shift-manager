@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('remits', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Titel der Remit
-            $table->timestamps();    // created_at & updated_at
+            $table->string('title');                          // Titel der Remit
+            $table->decimal('amount', 10, 2)->nullable();     // Betrag (optional)
+            $table->date('remit_date')->nullable();           // Datum (optional)
+            $table->text('description')->nullable();          // Beschreibung (optional)
+            $table->timestamps();                             // created_at & updated_at
         });
     }
 

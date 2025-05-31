@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Remit extends Model
 {
-    // Erlaubt 'title' beim Mass Assignment
-    protected $fillable = ['title'];
+    // Diese Felder dürfen per Mass Assignment gesetzt werden
+    protected $fillable = ['title', 'amount', 'remit_date', 'description'];
 }
