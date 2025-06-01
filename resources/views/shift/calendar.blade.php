@@ -1,4 +1,3 @@
-{{-- resources/views/shift/calendar.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Schicht-Kalender')
