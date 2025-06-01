@@ -1,18 +1,26 @@
 # Shift-Manager
 
-**Shift-Manager** ist eine Laravel-Anwendung zur Verwaltung von Remits (z. B. Rechnungen oder Zahlungsbelegen) mit QR-Code-Funktion. Das Projekt ist als Basis für weitere Features (z. B. Schichtverwaltung, Kalenderintegration etc.) gedacht.
+**Shift-Manager** ist eine Laravel-Anwendung zur Verwaltung von Remits (z. B. Rechnungen oder Zahlungsbelegen) mit QR-Code-Funktion sowie einer integrierten Schichtverwaltung inklusive Kalenderansicht.
 
 ## Features
 
 - Übersicht aller Remits
 - Anlegen, Bearbeiten und Löschen von Remits
 - QR-Code-Generierung für jeden Remit (z. B. zur schnellen Weitergabe oder Archivierung)
+- Schichtverwaltung (CRUD: Anlegen, Bearbeiten, Löschen, Anzeigen von Schichten)
+- Kalenderansicht für Schichten (zeigt geplante Schichten übersichtlich an)
 - Moderne, erweiterbare Codebasis (Laravel, MVC)
 
 ## Screenshots
 
-![Remit Übersicht](./public/images/demo-remit-list.png)
-*(Screenshot einfügen, wenn du möchtest)*
+![Remit Übersicht](./public/images/demo-remit-list.png)  
+*(Screenshot für Remits)*
+
+![Schichtplan Übersicht](./public/images/demo-shift-index.png)  
+*(Screenshot für Schichtübersicht)*
+
+![Schicht-Kalender](./public/images/demo-shift-calendar.png)  
+*(Screenshot Kalenderansicht)*
 
 ## Installation
 
@@ -48,9 +56,11 @@
     ```bash
     php artisan serve
     ```
-    Die Anwendung ist dann erreichbar unter: [http://localhost:8000](http://localhost:8000)
+    Die Anwendung ist erreichbar unter: [http://localhost:8000](http://localhost:8000)
 
 ## Grundfunktionen
+
+### Remits
 
 - **Remit anlegen:** Über das Formular auf `/remit/create`
 - **Remits ansehen:** Auf der Übersichtsseite `/remit`
@@ -58,12 +68,22 @@
 - **Remit löschen:** Über die Detailseite oder Listenansicht
 - **QR-Code:** Auf der Detailseite jedes Remits (`/remit/{id}`) wird automatisch ein QR-Code generiert.
 
+### Schichten (Shift-Management)
+
+- **Schicht anlegen:** Über das Formular auf `/shift/create`
+- **Schichten ansehen:** Auf der Übersichtsseite `/shift`
+- **Schicht bearbeiten:** Über die Detailseite `/shift/{id}/edit`
+- **Schicht löschen:** Über die Detail- oder Listenansicht
+- **Schicht-Kalender:** Übersicht aller geplanten Schichten auf `/shift/calendar`
+
 ## Weiterentwicklung (Ideen)
 
-- Integration eines Kalenders oder Schichtplans
-- Benutzerverwaltung (Authentifizierung)
+- Benutzerverwaltung (Authentifizierung und Rollen)
+- Schichttausch-Feature (Mitarbeitende können Schichten tauschen)
+- Benachrichtigungen per E-Mail (z. B. Erinnerungen an Schichtbeginn)
+- Übersicht „Wer fehlt? Wer ist im Urlaub?“
 - Mehrsprachigkeit (Localization)
-- E-Mail-Benachrichtigungen
+- Frontend-Verbesserungen mit Livewire oder Vue.js
 
 ## Systemanforderungen
 
@@ -80,7 +100,7 @@ MIT License
 
 ## Kontakt
 
-Erstellt von [Hamza] – Fragen, Feedback oder Anregungen? Einfach melden!
+Erstellt von **Hamza** – Fragen, Feedback oder Anregungen? Einfach melden!
 
 ---
 
